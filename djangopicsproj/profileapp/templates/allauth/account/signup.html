@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% load socialaccount %}
 
-{% block page_title %}Login{% endblock %}
+{% block page_title %}Sign Up{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -10,9 +10,9 @@
             <div class="col-5">
                 <div style="border: 1px solid #e7e7e7; padding: 25px;">
                     <div class="text-center">
-                        <img src="https://tbncdn.freelogodesign.org/3b177392-7ad8-417d-8882-f47636d4fa90.png" alt="">
+                        <img width="100" src="https://tbncdn.freelogodesign.org/3b177392-7ad8-417d-8882-f47636d4fa90.png" alt="">
                     </div>
-                    <form method="POST" action="{% url 'account_login' %}" class="form">
+                    <form method="POST" action="{% url 'account_signup' %}" class="form">
                         {% csrf_token %}
                         {% if redirect_field_value %}
                             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
@@ -20,20 +20,13 @@
                         {% bootstrap_form form %}
                         {% buttons %}
                             <button type="submit" class="btn btn-primary">
-                                Login
+                                Sign Up
                             </button>
-                            {% get_providers as socialaccount_providers %}
-                            {% for provider in socialaccount_providers %}
-                                <a class="btn btn-outline-primary"
-                                   href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
-                                   role="button">Login with {{ provider.name }}</a>
-                            {% endfor %}
                         {% endbuttons %}
                     </form>
-                    <a href="{{ signup_url }}">Sign up</a>
-                    <br>
-                    <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
+                    <a href="{{ login_url }}">Login</a>
                 </div>
+                <br>
             </div>
         </div>
     </div>

@@ -1,13 +1,28 @@
+{% load bootstrap4 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block page_title %}Django Pics{% endblock %}</title>
+
+    {% bootstrap_css %}
     {% block header_css %}{% endblock %}
+
+    {% bootstrap_javascript jquery='full' %}
     {% block header_js %}{% endblock %}
+
     {% block header_additional %}{% endblock %}
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            {% bootstrap_messages %}
+        </div>
+    </div>
+</div>
 {% block content %}{% endblock %}
 {% block footer_js %}{% endblock %}
 </body>
