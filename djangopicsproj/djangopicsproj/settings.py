@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.vk'
+    'allauth.socialaccount.providers.vk',
+
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
