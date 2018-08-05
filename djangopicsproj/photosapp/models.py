@@ -7,3 +7,6 @@ class Photo(models.Model):
     photo = models.URLField()
     caption = models.TextField(max_length=300, blank=True)
     published = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-published',)

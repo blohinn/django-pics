@@ -3,13 +3,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .forms import ProfileForm
+from photosapp.models import Photo
 
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
+    photos = Photo.objects.filter(owner=user).all()
 
     return render(request, 'profileapp/profile.html', {
-        'user': user
+        'user': user,
+        'photos': photos
     })
 
 

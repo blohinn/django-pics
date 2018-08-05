@@ -24,15 +24,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-4">
-                <img src="https://picsum.photos/300/300" alt="">
-            </div>
-            <div class="col-12 col-md-4">
-                <img src="https://picsum.photos/300/300" alt="">
-            </div>
-            <div class="col-12 col-md-4">
-                <img src="https://picsum.photos/300/300" alt="">
-            </div>
+            {% for photo in photos %}
+                <div class="col-12 col-md-4 text-center">
+                    <img width="300" src="{{ photo.photo }}" alt="">
+                    <p></p>
+                    <p>{{ photo.caption }}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
