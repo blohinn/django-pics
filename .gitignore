@@ -3,3 +3,4 @@ __pycache__/
 env/
 dockerdata/
 docker-compose.prod.yml
+djangopicsproj/djangopicsproj/settings_prod.py
