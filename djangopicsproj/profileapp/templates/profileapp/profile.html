@@ -1,0 +1,39 @@
+{% extends 'pagesapp/base.html' %}
+
+{% block page_title %}{{ username }}'s profile{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <img src="{% if user.profile.avatar %} {{ user.profile.avatar }} {% else %} http://via.placeholder.com/100x100 {% endif %}"
+                         width="100" id="avatar_img">
+                    <br><br>
+                    <p><strong>{{ user.username }}</strong></p>
+                    <p>{{ user.profile.first_name }} {{ user.profile.last_name }}</p>
+                    {% if user.profile.bio %}
+                        <p>{{ user.profile.bio }}</p>
+                    {% endif %}
+                    {% if request.user == user %}
+                        <a href="{% url 'profileapp:edit' %}">Edit Profile</a>
+                        <br><br>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <img src="https://picsum.photos/300/300" alt="">
+            </div>
+            <div class="col-12 col-md-4">
+                <img src="https://picsum.photos/300/300" alt="">
+            </div>
+            <div class="col-12 col-md-4">
+                <img src="https://picsum.photos/300/300" alt="">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'pagesapp/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_title %}{{ username }}'s profile{% endblock %}
+
+{% block header_js %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-6">
+                <div class="">
+                    <form method="POST" action="{% url 'profileapp:edit' %}" class="form">
+                        {% csrf_token %}
+                        <p style="margin-bottom: 10px">{{ form.avatar.field.label }}</p>
+                        <img src="{% if not user.profile.avatar %} http://via.placeholder.com/100x100 {% endif %}" width="100" id="avatar_img">
+                        <br>
+                        <br>
+                        {% bootstrap_field form.avatar %}
+                        <br><br>
+                        {% bootstrap_field form.first_name %}
+                        {% bootstrap_field form.last_name %}
+                        {% bootstrap_field form.bio %}
+                        {#                        {% bootstrap_form form %}#}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">
+                                Save
+                            </button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_js %}
+    {{ block.super }}
+    <script>
+        UPLOADCARE_LOCALE = "ru";
+        UPLOADCARE_TABS = "file gphotos vk";
+        UPLOADCARE_PUBLIC_KEY = "508d80c64cd88bf2a90c";
+    </script>
+    <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.6.0/uploadcare.full.min.js"></script>
+
+    <script>
+        let avatarWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
+
+        avatarWidget.onChange(function (file) {
+            if (file) {
+                file.done(function (info) {
+                    console.log(info);
+                    $("#avatar_img").attr("src", info.cdnUrl);
+                });
+            }
+        });
+    </script>
+{% endblock %}
