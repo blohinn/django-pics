@@ -16,7 +16,7 @@
                     <form method="POST" action="{% url 'profileapp:edit' %}" class="form">
                         {% csrf_token %}
                         <p style="margin-bottom: 10px">{{ form.avatar.field.label }}</p>
-                        <img src="{% if not user.profile.avatar %} http://via.placeholder.com/100x100 {% endif %}" width="100" id="avatar_img">
+                        <img src="{% if not user.profile.avatar %} http://via.placeholder.com/100x100 {% else %} {{ user.profile.avatar }} {% endif %}" width="100" id="avatar-img-preview">
                         <br>
                         <br>
                         {% bootstrap_field form.avatar %}
@@ -39,21 +39,14 @@
 
 {% block footer_js %}
     {{ block.super }}
-    <script>
-        UPLOADCARE_LOCALE = "ru";
-        UPLOADCARE_TABS = "file gphotos vk";
-        UPLOADCARE_PUBLIC_KEY = "508d80c64cd88bf2a90c";
-    </script>
-    <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.6.0/uploadcare.full.min.js"></script>
 
     <script>
-        let avatarWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
+        let avatarWidget = uploadcare.SingleWidget('[name=avatar]');
 
         avatarWidget.onChange(function (file) {
             if (file) {
                 file.done(function (info) {
-                    console.log(info);
-                    $("#avatar_img").attr("src", info.cdnUrl);
+                    $("#avatar-img-preview").attr("src", info.cdnUrl);
                 });
             }
         });

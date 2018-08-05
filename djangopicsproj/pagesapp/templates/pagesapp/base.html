@@ -44,6 +44,15 @@
 </div>
 {% include 'photosapp/upload_photo_modal.html' %}
 {% block content %}{% endblock %}
-{% block footer_js %}{% endblock %}
+{% block footer_js %}
+    <script>
+        UPLOADCARE_LOCALE = "en";
+        UPLOADCARE_TABS = "file gphotos vk";
+        UPLOADCARE_PUBLIC_KEY = "508d80c64cd88bf2a90c";
+    </script>
+    <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.6.0/uploadcare.full.min.js"></script>
+
+    <!-- For uploading photo form -->
+{% endblock %}
 </body>
 </html>

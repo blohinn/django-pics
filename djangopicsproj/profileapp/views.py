@@ -18,6 +18,7 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():
+            # TODO validating uploaded photo
             form.save()
             return redirect(reverse('profileapp:edit'))
     else:

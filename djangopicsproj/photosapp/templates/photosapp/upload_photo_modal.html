@@ -1,3 +1,5 @@
+{% load bootstrap4 %}
+
 <div class="modal fade" id="upload-photo-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -8,13 +10,37 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>HAHA</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form method="POST" action="{% url 'photosapp:upload_photo' %}" class="form">
+                <div class="modal-body">
+
+                    {% csrf_token %}
+                    <img width="160" src="http://via.placeholder.com/500x500" id="upload-photo-preview" alt="">
+                    <br><br>
+                    <p>{{ upload_photo_form.photo.field.label }}</p>
+                    {% bootstrap_field upload_photo_form.photo %}
+                    <br><br>
+                    {% bootstrap_field upload_photo_form.caption %}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        let uploadPhotoWidget = uploadcare.SingleWidget('[name=photo]');
+
+        uploadPhotoWidget.onChange(function (file) {
+            if (file) {
+                file.done(function (info) {
+                    $("#upload-photo-preview").attr("src", info.cdnUrl);
+                });
+            }
+        });
+    });
+</script>

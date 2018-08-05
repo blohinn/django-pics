@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
@@ -11,12 +12,14 @@ from .forms import PhotoForm
 def upload_photo(request):
     form = PhotoForm(request.POST)
     if form.is_valid():
+        # TODO validating uploaded photo
         instance = form.save(commit=False)
         instance.owner = request.user
         instance.save()
-        # TODO Django Message
+        messages.add_message(request, messages.SUCCESS, 'Photo uploaded.')
         return redirect(reverse('photosapp:photo_feed'))
-    return HttpResponseBadRequest
+    messages.add_message(request, messages.ERROR, 'Error uploading photo.')
+    return redirect(reverse('photosapp:photo_feed'))
 
 
 @login_required
