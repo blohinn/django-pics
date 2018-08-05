@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
+
+from .models import Photo
 from .forms import PhotoForm
 
 
@@ -24,4 +25,8 @@ def upload_photo(request):
 
 @login_required
 def photo_feed(request):
-    return render(request, 'photosapp/photo_feed.html')
+    # Yes. All photos in system in feed. No subscriptions. I had other goals for this project.
+    photos = Photo.objects.all()
+    return render(request, 'photosapp/photo_feed.html', {
+        'photos': photos
+    })
